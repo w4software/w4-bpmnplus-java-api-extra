@@ -31,6 +31,32 @@ With this feature enabled, the creation of new instance will be remotely delegat
 of round-trips between the client and the server. All other instance creation will be served from a local cache.
 
 
+Usage
+-----
+
+To use additional features, you need to use `ExtraEngineServiceFactory` instead of `EngineServiceFactory`
+to initialize an instance of `EngineService` object.
+
+This result in the following initialization code:
+
+```java
+    Map<ConfigurationParameter, String> configurationParameters = new HashMap<ConfigurationParameter, String>();
+    configurationParameters.put(NetworkConfigurationParameter.RMI__REGISTRY_HOST, "localhost");
+    EngineService engineService = ExtraEngineServiceFactory.getEngineService(configurationParameters);
+```
+
+Additional features provided by this module are not enabled by default. You can enable them by using enumeration keys
+coming from `ExtraConfigurationParameter` as shown in the example below.
+
+```java
+    Map<ConfigurationParameter, String> configurationParameters = new HashMap<ConfigurationParameter, String>();
+    configurationParameters.put(NetworkConfigurationParameter.RMI__REGISTRY_HOST, "localhost");
+    configurationParameters.put(ExtraConfigurationParameter.AUTO_RECOVERY, "true");
+    configurationParameters.put(ExtraConfigurationParameter.FACTORY_CACHE, "true");
+    EngineService engineService = ExtraEngineServiceFactory.getEngineService(configurationParameters);
+```
+
+
 License
 -------
 
